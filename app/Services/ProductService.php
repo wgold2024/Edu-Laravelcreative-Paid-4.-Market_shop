@@ -34,7 +34,7 @@ class ProductService
         if (isset($data['filters']['integer']['from'])) {
             $products->whereHas('paramProducts', function ($q) use ($data) {
                 foreach ($data['filters']['integer']['from'] as $key => $value) {
-                    $q->where('param_id', $key)->where('value', '>=', $value);
+                    $q->where('param_id', $key)->whereRaw('CAST(value as INT) >= ?', $value);
                 }
             });
         }
@@ -42,7 +42,7 @@ class ProductService
         if (isset($data['filters']['integer']['to'])) {
             $products->whereHas('paramProducts', function ($q) use ($data) {
                 foreach ($data['filters']['integer']['to'] as $key => $value) {
-                    $q->where('param_id', $key)->where('value', '<=', $value);
+                    $q->where('param_id', $key)->whereRaw('CAST(value as INT) <= ?', $value);
                 }
             });
         }
