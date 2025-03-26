@@ -48,14 +48,11 @@ class ProductController extends Controller
         return inertia('Admin/Product/Create', compact('categories', 'productGroups', 'params'));
     }
 
-    public function createChild(Product $product)
+    public function replicate(Product $product)
     {
-        $categories = CategoryResource::collection(Category::all())->resolve();
-        $productGroups = ProductGroupResource::collection(ProductGroup::all())->resolve();
-        $params = ParamResource::collection(Param::all())->resolve();
-        $product = ProductResource::make($product)->resolve();
+        $cloneProduct = ProductService::replicate($product);
 
-        return inertia('Admin/Product/CreateChild', compact('categories', 'productGroups', 'params', 'product'));
+        return to_route('admin.products.edit', $cloneProduct->id);
     }
 
     /**

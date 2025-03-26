@@ -66,4 +66,26 @@ class ProductService
         $product->params()->detach();
         ProductService::attachBatchParams($product, $data);
     }
+
+    public static function replicate(Product $product) : Product
+    {
+        try {
+            DB::beginTransaction();
+
+            $cloneProduct = $product->replicate();
+            $cloneProduct->article = fake()->randomNumber(7);
+            $cloneProduct->parent_id = $product->id;
+            $cloneProduct->push();
+
+            ImageService::replicateBatch($product, $cloneProduct);
+            ParamProductService::replicateBatch($product, $cloneProduct);
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            abort(500, "Replicate transaction failed");
+        }
+
+        return $cloneProduct;
+    }
 }

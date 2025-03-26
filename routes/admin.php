@@ -18,8 +18,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdminMiddleWare::c
     Route::resource('params', ParamController::class);
     Route::resource('categories', CategoryController::class);
 
-    Route::get('/product/{product}/children', [ProductController::class, 'indexChild'])->name('products.children.index');
-    Route::get('/product/{product}/children/create', [ProductController::class, 'createChild'])->name('products.children.create');
+    Route::get('product/{product}/children', [ProductController::class, 'indexChild'])->name('products.children.index');
+    Route::post('product/{product}/replicate', [ProductController::class, 'replicate'])->name('products.replicate');
 
     Route::delete('image/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 

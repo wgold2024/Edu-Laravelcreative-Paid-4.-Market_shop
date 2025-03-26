@@ -10,6 +10,9 @@
             <input v-model="entries.product.title" type="text" class="border border-gray-200 p-2 w-1/4" placeholder="Заголовок">
         </div>
         <div class="mb-4">
+            <input v-model="entries.product.article" type="text" class="border border-gray-200 p-2 w-1/4" placeholder="Заголовок">
+        </div>
+        <div class="mb-4">
             <textarea v-model="entries.product.description" type="text" class="border border-gray-200 p-2 w-1/4" placeholder="Описание"></textarea>
         </div>
         <div class="mb-4">
