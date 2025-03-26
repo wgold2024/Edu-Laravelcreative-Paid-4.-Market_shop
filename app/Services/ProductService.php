@@ -29,39 +29,7 @@ class ProductService
 
     public static function indexByCategories(Collection $categoryChildren, array $data) : Collection
     {
-        $products = Product::byCategories($categoryChildren);
-
-        if (isset($data['filters']['integer']['from'])) {
-            $products->whereHas('paramProducts', function ($q) use ($data) {
-                foreach ($data['filters']['integer']['from'] as $key => $value) {
-                    $q->where('param_id', $key)->whereRaw('CAST(value as INT) >= ?', $value);
-                }
-            });
-        }
-
-        if (isset($data['filters']['integer']['to'])) {
-            $products->whereHas('paramProducts', function ($q) use ($data) {
-                foreach ($data['filters']['integer']['to'] as $key => $value) {
-                    $q->where('param_id', $key)->whereRaw('CAST(value as INT) <= ?', $value);
-                }
-            });
-        }
-
-        if (isset($data['filters']['select'])) {
-            $products->whereHas('paramProducts', function ($q) use ($data) {
-                foreach ($data['filters']['select'] as $key => $value) {
-                    $q->where('param_id', $key)->where('value', $value);
-                }
-            });
-        }
-
-        if (isset($data['filters']['checkbox'])) {
-            $products->whereHas('paramProducts', function ($q) use ($data) {
-                foreach ($data['filters']['checkbox'] as $key => $value) {
-                    $q->where('param_id', $key)->whereIn('value', $value);
-                }
-            });
-        }
+        $products = Product::byCategories($categoryChildren)->filter($data);
 
         return $products->distinct('parent_id')->get();
     }

@@ -22,7 +22,6 @@ class CategoryController extends Controller
     public function productIndex(Category $category, ProductIndexRequest $request) {
         $data = $request->validated();
 
-
         $categoryChildren = CategoryService::getCategoryChildren($category);
         $params = ParamService::indexByCategories($categoryChildren);
 

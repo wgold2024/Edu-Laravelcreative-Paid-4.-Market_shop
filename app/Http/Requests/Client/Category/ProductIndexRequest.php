@@ -22,10 +22,9 @@ class ProductIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filters' => 'nullable|array',
-            'filters.integer' => 'nullable|array',
-            'filters.select' => 'nullable|array',
-            'filters.checkbox' => 'nullable|array',
+            'integer' => 'nullable|array',
+            'select' => 'nullable|array',
+            'checkbox' => 'nullable|array',
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Filters\ProductFilter;
+use App\Models\Traits\HasFilter;
 use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,6 +15,7 @@ use Illuminate\Support\Collection;
 #[ObservedBy(ProductObserver::class)]
 class Product extends Model
 {
+    use HasFilter;
     public function images() {
         return $this->hasMany(Image::class);
     }
