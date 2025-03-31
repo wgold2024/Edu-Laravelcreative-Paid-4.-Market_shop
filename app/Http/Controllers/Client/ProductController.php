@@ -15,4 +15,10 @@ class ProductController extends Controller
 
         return Inertia('Client/Product/Index', compact('products'));
     }
+
+    public function show(Product $product) {
+        $product = ProductResource::make($product)->resolve();
+
+        return Inertia('Client/Product/Show', compact('product'));
+    }
 }
