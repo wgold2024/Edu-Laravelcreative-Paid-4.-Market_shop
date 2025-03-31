@@ -19,6 +19,7 @@ class ParamWithValuesResource extends JsonResource
             'title' => $this->title,
             'filter_type' => $this->filter_type,
             'param_values' => $this->param_values,
+            'label' => $this->label,
         ];
     }
 }
