@@ -3,7 +3,7 @@
         <Link :href="route('admin.products.create')" class="inline-block px-2 py-3 bg-sky-500 border border-sky-700 text-white">Добавить</Link>
     </div>
     <div>
-        <table class="border-collapse table-auto w-full text-sm">
+        <table class="border-collapse border border-gray-200 table-auto w-full text-sm">
             <thead class="bg-gray-100 dark:bg-slate-800">
             <tr>
                 <th class="text-center border-b dark:border-slate-600 font-medium p-4 pb-3 text-slate-400 dark:text-slate-200 text-left">ID</th>

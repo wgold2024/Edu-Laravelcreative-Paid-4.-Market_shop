@@ -44,4 +44,9 @@ class Product extends Model
     {
         return $this->hasMany(ParamProduct::class, 'product_id', 'id');
     }
+
+    public function getHasChildrenAttribute() : bool
+    {
+        return $this->children()->exists();
+    }
 }

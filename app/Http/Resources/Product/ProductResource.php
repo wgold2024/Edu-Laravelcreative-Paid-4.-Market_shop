@@ -29,6 +29,7 @@ class ProductResource extends JsonResource
             'qty' => $this->qty,
             'category_id' => $this->category_id,
             'product_group_id' => $this->product_group_id,
+            'has_children' => $this->has_children,
             'images' => ImageResource::collection($this->images)->resolve(),
             'preview_image_url' => $this->preview_image_url,
             'params' => ParamWithPivotValueResource::collection($this->params)->resolve()
