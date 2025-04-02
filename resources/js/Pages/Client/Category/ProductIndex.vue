@@ -2,6 +2,23 @@
     <aside class="w-1/4 min-h-screen bg-gray-900">
         <nav class="p-4">
             <div>
+                <div class="mb-8">
+                    <div>
+                        <h3 class="text-white mb-2">Категории</h3>
+                    </div>
+                    <div>
+                        <div v-if="breadCrumbs.length > 0">
+                            <Link v-for="breadCrumb in breadCrumbs" :href="route('client.categories.products.index', breadCrumb.id)"
+                                class="text-gray-200 block py-2 border-b border-gray-600 text-sm"
+                            >< {{ breadCrumb.title }}</Link>
+                        </div>
+                        <div v-if="categoryChildren.length > 0">
+                            <Link v-for="categoryChild in categoryChildren" :href="route('client.categories.products.index', categoryChild.id)"
+                                  class="text-gray-200 block py-2 border-b border-gray-600 text-sm"
+                            >{{ categoryChild.title }}</Link>
+                        </div>
+                    </div>
+                </div>
                 <template v-for="param in params">
                     <div v-if="param.filter_type === 3" class="mb-4 pb-4 border-b border-gray-300">
                         <div>
@@ -66,7 +83,8 @@ export default defineComponent({
         category: Object,
         products: Array,
         breadCrumbs: Array,
-        params: Array
+        params: Array,
+        categoryChildren: Array
     },
 
     data() {

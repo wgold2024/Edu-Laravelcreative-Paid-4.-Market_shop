@@ -17,4 +17,8 @@ class Category extends Model
     {
         return $this->hasManyThrough(ParamProduct::class, Product::class, 'category_id', 'product_id', 'id', 'id');
     }
+
+    public function children() {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
 }

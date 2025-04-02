@@ -22,10 +22,10 @@ class CategoryController extends Controller
     public function productIndex(Category $category, ProductIndexRequest $request) {
         $data = $request->validated();
 
-        $categoryChildren = CategoryService::getCategoryChildren($category);
-        $params = ParamService::indexByCategories($categoryChildren);
+        $categoryTreeChildren = CategoryService::getCategoryChildren($category);
+        $params = ParamService::indexByCategories($categoryTreeChildren);
 
-        $products = ProductResource::collection(ProductService::indexByCategories($categoryChildren, $data))->resolve();
+        $products = ProductResource::collection(ProductService::indexByCategories($categoryTreeChildren, $data))->resolve();
 
         if ($request->wantsJson()) {
            return $products;
@@ -35,9 +35,9 @@ class CategoryController extends Controller
 
         $breadCrumbs = CategoryResource::collection(CategoryService::getCategoryParents($category))->resolve();
 
-
+        $categoryChildren = CategoryResource::collection($category->children)->resolve();
         $category = CategoryResource::make($category)->resolve();
 
-        return inertia('Client/Category/ProductIndex', compact('category', 'products', 'breadCrumbs', 'params'));
+        return inertia('Client/Category/ProductIndex', compact('category', 'products', 'breadCrumbs', 'params', 'categoryChildren'));
     }
 }
