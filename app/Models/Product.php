@@ -49,4 +49,15 @@ class Product extends Model
     {
         return $this->children()->exists();
     }
+
+    public function getGroupedParamsAttribute() : array
+    {
+        return $this->params->groupBy('title')->map(function  ($param) {
+            return [
+                'title' => $param->first()->title,
+                'label' => $param->first()->label,
+                'values' => $param->pluck('pivot.value')->toArray(),
+            ];
+        })->values()->toArray();
+    }
 }
