@@ -5,11 +5,11 @@
             <div class="flex mr-4">
                 <div style="width: 100px" class="mr-4">
                     <div v-for="image in product.images" class="mb-4">
-                        <img :src="image.url" :alt="product.title">
+                        <img class="cursor-pointer" @click="selectedImage = image" :src="image.url" :alt="product.title">
                     </div>
                 </div>
-                <div>
-                    <img :src="product.preview_image_url" :alt="product.title" />
+                <div v-if="selectedImage">
+                    <img :src="selectedImage.url" :alt="product.title" />
                 </div>
             </div>
             <div>
@@ -67,7 +67,13 @@ export default defineComponent({
         breadCrumbs: Array
     },
 
-    components: {Link, BreadCrumb}
+    components: {Link, BreadCrumb},
+
+    data() {
+        return {
+            selectedImage: {url: this.product.preview_image_url}
+        }
+    }
 
 })
 </script>
