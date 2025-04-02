@@ -39,13 +39,7 @@
         </nav>
     </aside>
     <article class="w-3/4 bg-gray-50 p-4">
-        <div class="mb-4">
-            <template v-for="breadCrumb in breadCrumbs">
-                <Link  :href="route('client.categories.products.index', breadCrumb.id)">{{ breadCrumb.title }}</Link>
-                <span>/</span>
-            </template>
-            <span>{{ category.title }}</span>
-        </div>
+        <BreadCrumb :breadCrumbs="breadCrumbs" :current="category.title"/>
         <div class="grid grid-cols-3 gap-4">
             <ProductItem v-for="product in productsData" :product="product"></ProductItem>
         </div>
@@ -58,6 +52,7 @@ import {Link} from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ProductItem from "@/Components/Client/Product/ProductItem.vue";
 import axios from "axios";
+import BreadCrumb from "@/Components/Client/Category/BreadCrumb.vue";
 
 
 export default defineComponent({
@@ -65,7 +60,7 @@ export default defineComponent({
 
     layout: MainLayout,
 
-    components: {ProductItem, Link},
+    components: {BreadCrumb, ProductItem, Link},
 
     props: {
         category: Object,

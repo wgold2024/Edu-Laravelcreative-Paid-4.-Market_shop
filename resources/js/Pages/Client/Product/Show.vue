@@ -1,5 +1,6 @@
 <template>
     <article class="w-3/4 bg-gray-50 p-4">
+        <BreadCrumb :breadCrumbs="breadCrumbs" :current="product.title"/>
         <div class="flex">
             <div class="flex mr-4">
                 <div style="width: 100px" class="mr-4">
@@ -52,6 +53,7 @@ import {defineComponent} from 'vue'
 import {Link} from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ProductItem from "@/Components/Client/Product/ProductItem.vue";
+import BreadCrumb from "@/Components/Client/Category/BreadCrumb.vue";
 
 
 export default defineComponent({
@@ -61,9 +63,11 @@ export default defineComponent({
 
 
     props: {
-        product: Object
-    }
+        product: Object,
+        breadCrumbs: Array
+    },
 
+    components: {Link, BreadCrumb}
 
 })
 </script>
