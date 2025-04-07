@@ -19,6 +19,12 @@ use mysql_xdevapi\Collection;
 
 class CategoryController extends Controller
 {
+    public function index() {
+        $categories = CategoryResource::collection(Category::whereNull('parent_id')->get())->resolve();
+
+        return \inertia('Client/Category/Index', compact('categories'));
+    }
+
     public function productIndex(Category $category, ProductIndexRequest $request) {
         $data = $request->validated();
 

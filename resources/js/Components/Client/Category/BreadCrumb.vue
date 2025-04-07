@@ -14,9 +14,11 @@ export default defineComponent({
 
 <template>
     <div class="mb-4">
+        <Link  :href="route('client.categories.index')">Категории</Link>
+        <span> / </span>
         <template v-for="breadCrumb in breadCrumbs">
             <Link  :href="route('client.categories.products.index', breadCrumb.id)">{{ breadCrumb.title }}</Link>
-            <span>/</span>
+            <span> / </span>
         </template>
         <span>{{ current }}</span>
     </div>
