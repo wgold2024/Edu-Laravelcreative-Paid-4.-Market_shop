@@ -21,6 +21,26 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'parent_id', 'id');
+    }
+
+    public function siblingProducts(): HasMany
+    {
+        return $this->parent->children()->whereNot('id', $this->id);
+    }
+
+    public function productGroup(): BelongsTo
+    {
+        return $this->belongsTo(ProductGroup::class);
+    }
+
+    public function getGroupProductsAttribute(): Collection
+    {
+        return $this->productGroup->products()->whereNot('parent_id', $this->parent_id)->distinct('parent_id')->get();
+    }
+
     public function params(): BelongsToMany
     {
         return $this->belongsToMany(Param::class)->withPivot('value');
