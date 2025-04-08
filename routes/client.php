@@ -12,7 +12,7 @@ Route::name('client.')->group(function () {
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('categories/{category}/products', [CategoryController::class, 'productIndex'])->name('categories.products.index');
 
-    Route::resource('/carts', CartController::class);
+    Route::resource('/carts', CartController::class)->middleware('auth');
 });
 
 

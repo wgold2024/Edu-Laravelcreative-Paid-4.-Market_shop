@@ -39,9 +39,13 @@
                             </div>
                         </div>
                         <div>
-                            <input type="number" placeholder="Количество" value="1">
-                            <a href="#" class="inline-block px-3 py-2 bg-indigo-800 border border-indigo-900 text-white">Купить</a>
+                            <a href="#" class="inline-block px-4 py-2 bg-indigo-800 border border-indigo-900 text-white">-</a>
+                            <input min="1" class="p-2 border border-gray-200" type="number" value="1" disabled>
+                            <a href="#" class="inline-block px-4 py-2 bg-indigo-800 border border-indigo-900 text-white">+</a>
                         </div>
+                        <a  @click.prevent="storeCart"
+                            href="#"
+                            class="inline-block px-3 py-2 bg-indigo-800 border border-indigo-900 text-white">Купить</a>
                     </div>
                     <div v-if="product.group_products.length > 0" class="p-4 bg-white border border-gray-200">
                         <div class="mb-4">
@@ -91,14 +95,8 @@ import BreadCrumb from "@/Components/Client/Category/BreadCrumb.vue";
 
 export default defineComponent({
     name: "Index",
-    methods: {
-        router() {
-            return router
-        }
-    },
 
     layout: MainLayout,
-
 
     props: {
         product: Object,
@@ -110,9 +108,22 @@ export default defineComponent({
 
     data() {
         return {
+            cart: {
+                qty: 1,
+                product_id: this.product.id,
+            },
             selectedImage: {url: this.product.preview_image_url}
         }
-    }
+    },
+
+    methods: {
+        storeCart() {
+            axios.post(route('client.carts.store'), this.cart)
+                .then(res => {
+                    console.log(res);
+                })
+        }
+    },
 
 })
 </script>
