@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Cart\StoreRequest;
 use App\Http\Requests\Client\Cart\UpdateRequest;
 use App\Http\Resources\Cart\CartResource;
+use App\Http\Resources\Cart\CartWithProductResource;
 use App\Models\Cart;
 use App\Services\CartService;
 
@@ -13,7 +14,9 @@ use App\Services\CartService;
 class CartController extends Controller
 {
     public function index() {
-        return inertia('Client/Cart/Index');
+        $carts = CartWithProductResource::collection(auth()->user()->carts)->resolve();
+
+        return inertia('Client/Cart/Index', compact('carts'));
     }
 
     public function store(StoreRequest $request) {
