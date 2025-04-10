@@ -6,15 +6,14 @@
             <p>{{ product.price }}</p>
             <p>{{ product.old_price }}</p>
         </div>
-        <div>
-            <a href="#" class="block p-4 bg-indigo-600 text-white text-center">Купить</a>
-        </div>
+        <StoreOrUpdateCart :product="product"></StoreOrUpdateCart>
     </div>
 </template>
 
 <script>
 import {defineComponent} from 'vue'
 import {Link} from "@inertiajs/vue3";
+import StoreOrUpdateCart from "@/Components/Client/Cart/StoreOrUpdateCart.vue";
 
 export default defineComponent({
     name: "ProductItem",
@@ -24,7 +23,8 @@ export default defineComponent({
     },
 
     components: {
-        Link
+        Link,
+        StoreOrUpdateCart
     }
 })
 </script>

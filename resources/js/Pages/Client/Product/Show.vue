@@ -38,14 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <a href="#" class="inline-block px-4 py-2 bg-indigo-800 border border-indigo-900 text-white">-</a>
-                            <input min="1" class="p-2 border border-gray-200" type="number" value="1" disabled>
-                            <a href="#" class="inline-block px-4 py-2 bg-indigo-800 border border-indigo-900 text-white">+</a>
-                        </div>
-                        <a  @click.prevent="storeCart"
-                            href="#"
-                            class="inline-block px-3 py-2 bg-indigo-800 border border-indigo-900 text-white">Купить</a>
+                        <StoreOrUpdateCart :product="product"></StoreOrUpdateCart>
                     </div>
                     <div v-if="product.group_products.length > 0" class="p-4 bg-white border border-gray-200">
                         <div class="mb-4">
@@ -89,8 +82,8 @@
 import {defineComponent} from 'vue'
 import {Link, router} from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
-import ProductItem from "@/Components/Client/Product/ProductItem.vue";
 import BreadCrumb from "@/Components/Client/Category/BreadCrumb.vue";
+import StoreOrUpdateCart from "@/Components/Client/Cart/StoreOrUpdateCart.vue";
 
 
 export default defineComponent({
@@ -98,32 +91,19 @@ export default defineComponent({
 
     layout: MainLayout,
 
+    data() {
+        return {
+            selectedImage: {url: this.product.preview_image_url}
+        }
+    },
+
     props: {
         product: Object,
         breadCrumbs: Array,
         paramProducts: Array
     },
 
-    components: {Link, BreadCrumb},
-
-    data() {
-        return {
-            cart: {
-                qty: 1,
-                product_id: this.product.id,
-            },
-            selectedImage: {url: this.product.preview_image_url}
-        }
-    },
-
-    methods: {
-        storeCart() {
-            axios.post(route('client.carts.store'), this.cart)
-                .then(res => {
-                    console.log(res);
-                })
-        }
-    },
+    components: {Link, BreadCrumb, StoreOrUpdateCart},
 
 })
 </script>

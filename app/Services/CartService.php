@@ -13,10 +13,10 @@ class CartService
         return auth()->user()->carts()->create($data);
     }
 
-//    public static function update(array $data, Category $category) : Category
-//    {
-//        $category->update($data);
-//
-//        return $category->fresh();
-//    }
+    public static function update(Cart $cart, array $data) : Cart
+    {
+        $cart->update($data);
+
+        return $cart->fresh();
+    }
 }
