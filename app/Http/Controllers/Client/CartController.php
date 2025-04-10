@@ -9,6 +9,7 @@ use App\Http\Resources\Cart\CartResource;
 use App\Http\Resources\Cart\CartWithProductResource;
 use App\Models\Cart;
 use App\Services\CartService;
+use Illuminate\Http\Response;
 
 
 class CartController extends Controller
@@ -30,6 +31,13 @@ class CartController extends Controller
         $data = $request->validated();
         $cart = CartService::update($cart, $data);
 
-        return CartResource::make($cart)->resolve();
+        return CartWithProductResource::make($cart)->resolve();
+    }
+
+    public function destroy(Cart $cart) {
+        $cart->delete();
+        return response()->json([
+            'message' => 'deleted',
+        ], Response::HTTP_OK);
     }
 }

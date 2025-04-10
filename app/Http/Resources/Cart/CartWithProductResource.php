@@ -20,6 +20,7 @@ class CartWithProductResource extends JsonResource
             'product_image_url' => $this->product_image_url,
             'total_sum' => $this->total_sum,
             'qty' => $this->qty,
+            'product_id' => $this->product_id,
         ];
     }
 }
