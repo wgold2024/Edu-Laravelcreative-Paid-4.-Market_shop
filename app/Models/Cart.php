@@ -26,6 +26,6 @@ class Cart extends Model
 
     public function getProductImageUrlAttribute() : Null|String
     {
-        return $this->product->preview_image_url;
+        return $this->product->preview_image_url ?? '';
     }
 }

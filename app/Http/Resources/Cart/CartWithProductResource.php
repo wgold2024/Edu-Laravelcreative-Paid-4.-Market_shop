@@ -21,6 +21,7 @@ class CartWithProductResource extends JsonResource
             'total_sum' => $this->total_sum,
             'qty' => $this->qty,
             'product_id' => $this->product_id,
+            'carts_total_sum' => auth()->user()->refresh()->carts_total_sum,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Http\Resources\Cart\CartResource;
 use App\Http\Resources\Image\ImageResource;
 use App\Http\Resources\Param\ParamResource;
 use App\Http\Resources\Param\ParamWithPivotValueResource;
@@ -31,6 +32,7 @@ class ProductWithGroupedParamResource extends JsonResource
             'product_group_id' => $this->product_group_id,
             'group_products' => ProductResource::collection($this->groupProducts)->resolve(),
             'has_children' => $this->has_children,
+            'cart' => CartResource::make($this->cart)->resolve(),
             'images' => ImageResource::collection($this->images)->resolve(),
             'preview_image_url' => $this->preview_image_url,
             'params' => $this->grouped_params

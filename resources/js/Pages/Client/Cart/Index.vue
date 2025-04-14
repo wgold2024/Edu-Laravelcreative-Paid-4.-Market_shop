@@ -71,6 +71,7 @@ export default defineComponent({
             axios.patch(route('client.carts.update', cart.id), { qty: cart.qty })
                 .then(res => {
                     cart.total_sum = res.data.total_sum;
+                    this.$page.props.auth.user.carts_total_sum = res.data.carts_total_sum;
                 })
         },
 
@@ -78,6 +79,7 @@ export default defineComponent({
             axios.delete(route('client.carts.destroy', cart.id))
                 .then(res => {
                     this.cartsData =  this.cartsData.filter(cartData => cartData.id !== cart.id)
+                    this.$page.props.auth.user.carts_total_sum = this.$page.props.auth.user.carts_total_sum - cart.total_sum;
                 })
         }
     }
