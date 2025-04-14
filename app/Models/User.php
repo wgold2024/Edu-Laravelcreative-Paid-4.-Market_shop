@@ -61,11 +61,21 @@ class User extends Authenticatable
 
     public function carts(): HasMany
     {
-        return $this->hasMany(Cart::class, 'user_id', 'id');
+        return $this->hasMany(Cart::class, 'user_id', 'id')->whereNull('order_id');
     }
 
     public function getCartsTotalSumAttribute(): int
     {
         return $this->carts->sum('total_sum');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'product_user_cards')->wherePivotNull('order_id');
     }
 }

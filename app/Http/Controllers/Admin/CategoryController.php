@@ -17,7 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = CategoryResource::collection(Category::all())->resolve();
+        $categories = Category::without(['parent', 'children'])->get();
+        $categories = CategoryResource::collection($categories)->resolve();
 
         return inertia('Admin/Category/Index', compact('categories'));
     }

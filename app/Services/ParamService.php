@@ -22,11 +22,11 @@ class ParamService
     public static function indexByCategories(Collection $categoryChildren) : Collection
     {
         $arr = [];
-        foreach ($categoryChildren->pluck('paramProducts') as $paramProduct) {
+        foreach ($categoryChildren->load('paramProducts')->pluck('paramProducts') as $paramProduct) {
             $arr = array_merge($arr, $paramProduct->toArray());
         }
         $arr = Collect($arr);
-        $params = Param::whereIn('id', $arr->pluck('param_id'))->get();
+        $params = Param::whereIn('id', $arr->pluck('param_id')->unique())->get();
         $arr = $arr->groupBy('param_id');
 
         foreach ($params as $param) {

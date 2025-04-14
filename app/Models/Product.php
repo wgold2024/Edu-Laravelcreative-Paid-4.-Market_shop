@@ -59,12 +59,13 @@ class Product extends Model
 
     public function getPreviewImageUrlAttribute() : Null|String
     {
-        return $this->images()->first()->url ?? null;
+        return $this->images->first()->url ?? null;
     }
 
     public function scopeByCategories(Builder $builder, Collection $categoryChildren) {
         return $builder->whereIn('category_id', $categoryChildren->pluck('id'))
-            ->whereNotNull('parent_id');
+            ->whereNotNull('parent_id')
+            ->with(['cart', 'images', 'params', 'children']);
     }
 
     public function paramProducts() : HasMany
@@ -74,7 +75,7 @@ class Product extends Model
 
     public function getHasChildrenAttribute() : bool
     {
-        return $this->children()->exists();
+        return $this->children->contains('id', $this->id);
     }
 
     public function getGroupedParamsAttribute() : array

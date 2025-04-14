@@ -36,6 +36,7 @@ export default defineComponent({
             axios.post(route('client.carts.store'), this.cart)
                 .then(res => {
                     this.product.cart = res.data;
+                    this.$page.props.auth.user.carts_total_sum = res.data.carts_total_sum;
                 })
         },
 
